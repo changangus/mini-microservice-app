@@ -1,8 +1,9 @@
 import express, { json } from 'express';
 import { randomBytes } from 'crypto';
+import cors from 'cors';
 
 const app = express();
-
+app.use(cors());
 app.use(json());
 
 const commentsByPostId = {};

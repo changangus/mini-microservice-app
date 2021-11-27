@@ -1,8 +1,11 @@
 import express, { json } from 'express';
 import { randomBytes } from 'crypto';
-const app = express();
+import cors from 'cors';
 
+const app = express();
+app.use(cors());
 app.use(express.json());
+
 
 // This is storing posts in memory:
 const posts = {};
