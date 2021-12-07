@@ -22,11 +22,13 @@ app.post('/events', (req, res) => {
       const newComment = { commentId, comment, postId };
       console.log('in comments:', posts)
       posts[postId].comments.push(newComment);
+      break;
     case 'PostCreated':
       const { id, title } = data;
       const post = { id, title, comments: [] };
       posts[id] = post;
       console.log('in posts:', posts)
+      break;
     default: 
       break; 
   }

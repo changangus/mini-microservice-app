@@ -1,16 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import CreateCommentForm from "./CreateCommentForm";
 
-const Post = ({ title, id }) => {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    axios.get(`http://localhost:4001/posts/${id}/comments`).then(res => {
-      setComments(res.data);
-    });
-  }, []);
-
+const Post = ({ title, id, comments = [] }) => {
     return (
       <div>
         <h3>{title}</h3>

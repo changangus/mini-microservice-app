@@ -6,7 +6,7 @@ const PostList = () => {
   const [posts, setPosts] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:4000/posts").then(res => {
+    axios.get("http://localhost:4002/posts").then(res => {
       console.log(res.data);
       Object.keys(res.data).length > 0 ? setPosts(res.data) : setPosts({});
     });
@@ -15,7 +15,7 @@ const PostList = () => {
   return (
       <div className="post-list">
           {Object.values(posts).map(post => (
-              <Post key={post.id} id={post.id} title={post.title} />
+              <Post key={post.id} id={post.id} title={post.title} comments={post.comments} />
           ))}
       </div>
   );
