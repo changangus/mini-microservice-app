@@ -14,26 +14,33 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/events', (req, res) => {
-  const { type, data } = req.body;
-  console.log(req.body);
-  switch (type) {
-    case 'CommentCreated':
-      const { commentId, postId, comment } = data;
-      const newComment = { commentId, comment, postId };
-      console.log('in comments:', posts)
+  try {
+    const { type, data } = req.body;
+
+    if (type === 'CommentUpdated') {
+        const { commentId, postId, status, comment } = data;
+        const comments = posts[postId].comments;
+        const commentToUpdate = comments.find(comment => comment.commentId === commentId);
+        commentToUpdate.status = status;
+        commentToUpdate.comment = comment;
+    }
+  
+    if (type === 'CommentCreated') {
+      const { commentId, postId, comment, status } = data;
+      const newComment = { commentId, comment, postId, status };
       posts[postId].comments.push(newComment);
-      break;
-    case 'PostCreated':
+    }
+        
+    if (type === 'PostCreated') {
       const { id, title } = data;
       const post = { id, title, comments: [] };
       posts[id] = post;
-      console.log('in posts:', posts)
-      break;
-    default: 
-      break; 
+    }
+  
+    res.send({status: 'OK'});
+  } catch (error) {
+    console.log(error.message);
   }
-  console.log('1:', posts);
-  res.send({status: 'OK'});
 });
 
 app.listen(4002, () => {
