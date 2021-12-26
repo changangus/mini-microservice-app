@@ -5,9 +5,18 @@ const Post = ({ title, id, comments = [] }) => {
       <div>
         <h3>{title}</h3>
         <ul>
-          {comments.map(comment => (
-            <li key={comment.commentId}>{comment.comment}</li>
-          ))}
+          {comments.map(comment => {
+            switch (comment.status) {
+              case "pending":
+                return <li key={comment.id}>Comment is awaiting moderation</li>;
+              case "approved":
+                return <li key={comment.id}>{comment.comment}</li>;
+              case "rejected":
+                return <li key={comment.id}>Comment has been rejected</li>;
+              default:
+                return <li key={comment.id}>{comment.comment}</li>;
+            }
+          })}
         </ul>
         <CreateCommentForm id={id} />
       </div>
