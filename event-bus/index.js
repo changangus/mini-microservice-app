@@ -4,8 +4,12 @@ import axios from 'axios';
 const app = express();
 app.use(json());
 
+const events = [];
+
 app.post('/events', async (req, res) => {
   const event = req.body;
+  events.push(event);
+
   try {
     await axios.post('http://localhost:4000/events', event);
     await axios.post('http://localhost:4001/events', event);  
@@ -16,6 +20,10 @@ app.post('/events', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+app.get('/events', (req, res) => {
+  res.send(events);
 });
 
 app.listen(4005, () => {
