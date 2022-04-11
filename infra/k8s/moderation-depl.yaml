@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata: 
-  name: moderation-srv-cip
+  name: moderation-srv
 spec: 
   type: ClusterIP
   selector: 
