@@ -12,18 +12,18 @@ app.post('/events', async (req, res) => {
 
   try {
     await axios.post('http://posts-srv-cip:4000/events', event);
-    // await axios.post('http://localhost:4001/events', event);  
-    // await axios.post('http://localhost:4002/events', event);
-    // await axios.post('http://localhost:4003/events', event);
+    await axios.post('http://comments-srv:4001/events', event);  
+    await axios.post('http://query-srv:4002/events', event);
+    await axios.post('http://moderation-srv:4003/events', event);
     
-    res.send({ status: 'OK' });
+    return res.send({ status: 'OK' });
   } catch (error) {
     console.log(error);
   }
 });
 
 app.get('/events', (req, res) => {
-  res.send(events);
+  return res.send(events);
 });
 
 app.listen(4005, () => {

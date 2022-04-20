@@ -26,13 +26,13 @@ app.post('/posts', async (req, res) => {
     data: { id, title }
   });
 
-  res.status(201).send(posts[id]);
+  return res.status(201).send(posts[id]);
 });
 
 app.post('/events', async (req, res) => {
   console.log('Event Received: ', req.body);
 
-  res.send({ status: 'OK' });
+  return res.send({ status: 'OK' });
 });
 
 app.listen(4000, () => {

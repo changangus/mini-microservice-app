@@ -33,10 +33,11 @@ const handleEvent = (type, data) => {
 
 app.get('/posts', (req, res) => {
   console.log(posts);
-  res.send(posts);
+  return res.send(posts);
 });
 
 app.post('/events', (req, res) => {
+  console.log('Event Received: ', req.body);
   try {
     const { type, data } = req.body;
     handleEvent(type, data);
@@ -44,6 +45,8 @@ app.post('/events', (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
+
+  return res.send({status: 'OK'});
 });
 
 app.listen(4002, async () => {
